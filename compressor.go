@@ -1,4 +1,4 @@
-package main
+package compressPngJpeg
 
 import (
 	"fmt"
@@ -6,7 +6,6 @@ import (
 	"github.com/ultimate-guitar/go-imagequant"
 	"image/jpeg"
 	"image/png"
-	"io/ioutil"
 	"log"
 	"os"
 )
@@ -99,10 +98,4 @@ func JPEGQuant(inPath, outPath string, width, height uint)  {
 
 	// write new image to file
 	jpeg.Encode(out, m, nil)
-}
-
-
-func main() {
-	PNGQuant(false, "12.png", "14.png", 1, 0)
-	JPEGQuant("10.jpeg", "20.jpeg", 1000, 0)
 }
