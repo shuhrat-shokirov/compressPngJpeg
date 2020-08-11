@@ -6,11 +6,16 @@ import (
 	"github.com/ultimate-guitar/go-imagequant"
 	"image/jpeg"
 	"image/png"
+	"io/ioutil"
 	"log"
 	"os"
 )
 
-func crushFile(image []byte, destfile string, speed int, compression png.CompressionLevel) error {
+func crushFile(file *os.File, destfile string, speed int, compression png.CompressionLevel) error {
+	image, err := ioutil.ReadAll(file)
+	if err != nil {
+		return fmt.Errorf("ioutil.ReadAll: %s", err.Error())
+	}
 	optiImage, err := imagequant.Crush(image, speed, compression)
 	if err != nil {
 		return fmt.Errorf("imagequant.Crush: %s", err.Error())
@@ -31,7 +36,7 @@ func crushFile(image []byte, destfile string, speed int, compression png.Compres
 //out - Output filename
 //speed - Speed (1 slowest, 10 fastest)
 //compression - Compression level (DefaultCompression = 0, NoCompression = -1, BestSpeed = -2, BestCompression = -3)
-func PNGQuant(version bool, image []byte, out string, speed, compression int)  {
+func PNGQuant(version bool, file *os.File, out string, speed, compression int)  {
 	if version {
 		fmt.Printf("libimagequant '%s' (%d)\n", imagequant.GetLibraryVersionString(), imagequant.GetLibraryVersion())
 		os.Exit(0)
@@ -51,7 +56,7 @@ func PNGQuant(version bool, image []byte, out string, speed, compression int)  {
 		cLevel = png.BestCompression
 	}
 
-	err := crushFile(image, out, speed, cLevel)
+	err := crushFile(file, out, speed, cLevel)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
@@ -61,11 +66,7 @@ func PNGQuant(version bool, image []byte, out string, speed, compression int)  {
 
 }
 
-func JPEGQuant(inPath, outPath string, width, height uint)  {
-	file, err := os.Open(inPath)
-	if err != nil {
-		log.Fatal(err)
-	}
+func JPEGQuant(file *os.File, outPath string, width, height uint)  {
 
 	// decode jpeg into image.Image
 	img, err := jpeg.Decode(file)
