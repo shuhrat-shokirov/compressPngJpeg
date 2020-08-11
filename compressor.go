@@ -6,6 +6,7 @@ import (
 	"github.com/ultimate-guitar/go-imagequant"
 	"image/jpeg"
 	"image/png"
+	"io/ioutil"
 	"log"
 	"os"
 )
