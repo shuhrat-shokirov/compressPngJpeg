@@ -68,15 +68,12 @@ func PNGQuant(version bool, file *os.File, out string, speed, compression int)  
 
 func JPEGQuant(file *os.File, outPath string, width, height uint)  {
 
-	// decode jpeg into image.Image
 	img, err := jpeg.Decode(file)
 	if err != nil {
 		log.Fatal(err)
 	}
 	file.Close()
 
-	// resize to width 1000 using Lanczos resampling
-	// and preserve aspect ratio
 	m := resize.Resize(width, height, img, resize.Lanczos3)
 
 	out, err := os.Create(outPath)
@@ -85,6 +82,5 @@ func JPEGQuant(file *os.File, outPath string, width, height uint)  {
 	}
 	defer out.Close()
 
-	// write new image to file
 	jpeg.Encode(out, m, nil)
 }
