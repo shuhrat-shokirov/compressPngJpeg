@@ -1,4 +1,4 @@
-module github.com/shuhrat-shokirov/compressPngJpeg
+module github.com/shuhrat-shokirov/compressor
 
 go 1.14
 

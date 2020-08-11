@@ -1,4 +1,4 @@
-package compressPngJpeg
+package compressor
 
 import (
 	"fmt"
