@@ -19,7 +19,7 @@ JPEGQuant(file, "20.jpeg", 1000, 0)
 
 If your OC Windows: need install MINGW
 
- ```
+ ```go
  i remove my mingw 32 bit installtion and using mingw 64 installation from souceforge site here
 
 https://sourceforge.net/projects/mingw-w64/
